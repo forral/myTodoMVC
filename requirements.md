@@ -7,14 +7,15 @@
 
 ---
 
-- [ ] It should show the .todosText on the DOM
-- [ ] It should show the .completed todos on the DOM
-- [ ] It should run handlers.toggleAll(); when pressing the toggle Button
-- [ ] Transform all the for loops into forEach
-- [ ] It should addtodo when pressing the enter key
-- [ ] Every Li should have a delete button
-- [ ] Every Li should have a unique ID
-- [ ] The delete button should update the todoList.todos
+- [x] It should show the .todosText on the DOM
+- [x] It should show the .completed todos on the DOM
+- [x] It should run handlers.toggleAll(); when pressing the toggle Button
+- [x] Transform all the for loops into forEach
+- [x] Trim the input string
+- [x] It should addtodo when pressing the enter key
+- [x] Every Li should have a delete button
+- [x] Every Li should have a unique ID
+- [x] The delete button should update the todoList.todos
 
 ---
 
