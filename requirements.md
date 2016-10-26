@@ -19,4 +19,9 @@
 
 ---
 
-- [ ] Analise how every todo is build in HTML on the jQuery todoMVC
+- [x] Analise how every todo is build in HTML on the jQuery todoMVC
+
+## 161026
+
+- [ ] It should have an input type checkbox for every li
+- [ ] It should update the value of .completed when tick the checkbox

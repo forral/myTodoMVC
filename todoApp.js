@@ -62,13 +62,17 @@ var view = {
 
 		todoList.todos.forEach(function(todo, position) {
 			var todoLi = document.createElement('li');
+			var todoCheckbox = document.createElement('input');
+			todoCheckbox.type = 'checkbox';
 
 			if (todo.completed === true) {
 				todoTextWithCompletion = '[x] ' + todo.todoText + ' ';
+				todoCheckbox.checked = true;
 			} else {
 				todoTextWithCompletion = '[ ] ' + todo.todoText + ' ';
 			}
 
+			todoLi.appendChild(todoCheckbox);
 			todoLi.textContent = todoTextWithCompletion;
 			todoLi.id = position;
 			todoLi.appendChild(this.createDeleteButton());
