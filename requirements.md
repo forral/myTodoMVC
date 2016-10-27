@@ -23,5 +23,9 @@
 
 ## 161026
 
-- [ ] It should have an input type checkbox for every li
-- [ ] It should update the value of .completed when tick the checkbox
+- [x] It should have an input type checkbox for every li
+- [x] It should update the value of .completed when tick the checkbox
+
+# 161026
+
+- [ ] Fully understand how is implement the changeTodo in jQuery todoMVC

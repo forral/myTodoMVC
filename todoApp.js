@@ -48,8 +48,12 @@ var handlers = {
 		inputEl.value = '';
 		view.displayTodos();
 	},
-	deleteTodo: function(position){
+	deleteTodo: function(position) {
 		todoList.deleteTodo(position);
+		view.displayTodos();
+	},
+	toggleTodo: function(position) {
+		todoList.toggleTodo(position);
 		view.displayTodos();
 	}
 };
@@ -57,25 +61,17 @@ var handlers = {
 var view = {
 	displayTodos: function() {
 		var todosUl = document.querySelector('ul');
-		var todoTextWithCompletion;
 		todosUl.innerHTML = '';
+		var todoLi;
 
 		todoList.todos.forEach(function(todo, position) {
-			var todoLi = document.createElement('li');
-			var todoCheckbox = document.createElement('input');
-			todoCheckbox.type = 'checkbox';
 
 			if (todo.completed === true) {
-				todoTextWithCompletion = '[x] ' + todo.todoText + ' ';
-				todoCheckbox.checked = true;
+				todoLi = this.createTodoLi(todo.todoText, true, position);
 			} else {
-				todoTextWithCompletion = '[ ] ' + todo.todoText + ' ';
+				todoLi = this.createTodoLi(todo.todoText, false, position);
 			}
 
-			todoLi.appendChild(todoCheckbox);
-			todoLi.textContent = todoTextWithCompletion;
-			todoLi.id = position;
-			todoLi.appendChild(this.createDeleteButton());
 			todosUl.appendChild(todoLi);
 		}, this);
 	},
@@ -89,19 +85,45 @@ var view = {
 			}
 		});
 
-		// delete todo event
 		var todoUl = document.querySelector('ul');
 		todoUl.addEventListener('click', function(event){
+
+			// delete button event
 			if (event.target.className === 'deleteButton') {
 				handlers.deleteTodo(parseInt(event.target.parentElement.id));
 			}
+
+			// checkbox event
+			if(event.target.className === 'todoStatus') {
+				handlers.toggleTodo(parseInt(event.target.parentElement.id));
+			}
 		});
+
 	},
-	createDeleteButton: function(){
+	createTodoLi: function(todoText, status, position) {
+		var liElement = document.createElement('li');
+		liElement.id = position;
+
+		var inputElement = document.createElement('input');
+		inputElement.type = 'checkbox';
+		inputElement.className = 'todoStatus';
+		inputElement.checked = status;
+
+		var labelElement = document.createElement('label');
+		labelElement.textContent = todoText;
+		if (status) {
+			labelElement.className = 'completed';
+		}
+
 		var deleteButton = document.createElement('button');
-		deleteButton.textContent = 'delete';
 		deleteButton.className = 'deleteButton';
-		return deleteButton;
+		deleteButton.textContent = 'delete';
+
+		liElement.appendChild(inputElement);
+		liElement.appendChild(labelElement);
+		liElement.appendChild(deleteButton);
+
+		return liElement
 	}
 };
 
