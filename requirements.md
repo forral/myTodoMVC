@@ -28,4 +28,9 @@
 
 # 161026
 
-- [ ] Fully understand how is implement the changeTodo in jQuery todoMVC
+- [x] Fully understand how is implement the changeTodo in jQuery todoMVC
+
+# 161027
+
+- [ ] Every Li should have an div element with input[checkbox], label and deleteButton and an input[text].
+- [ ] It should hide the div and how the input[text] when double click the label.
