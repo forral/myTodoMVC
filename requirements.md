@@ -32,5 +32,6 @@
 
 # 161027
 
-- [ ] Every Li should have an div element with input[checkbox], label and deleteButton and an input[text].
-- [ ] It should hide the div and how the input[text] when double click the label.
+- [x] Every Li should have an div element with input[checkbox], label and deleteButton and an input[text].
+- [x] It should hide the div and show the input[text] when double click the label.
+- [ ] It should actually edit the todo

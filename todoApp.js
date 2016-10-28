@@ -76,16 +76,18 @@ var view = {
 		}, this);
 	},
 	setUpEvents: function(){
-		// input event
+		
 		var inputEl = document.querySelector('input');
 		var ENTER_KEY = 13;
+		var ESCAPE_KEY = 27;
+		var todoUl = document.querySelector('ul');
+
 		inputEl.addEventListener('keyup', function(event) {
 			if (event.keyCode === ENTER_KEY) {
 				handlers.addTodo();
 			}
 		});
 
-		var todoUl = document.querySelector('ul');
 		todoUl.addEventListener('click', function(event){
 
 			// delete button event
@@ -95,21 +97,66 @@ var view = {
 
 			// checkbox event
 			if(event.target.className === 'todoStatus') {
-				handlers.toggleTodo(parseInt(event.target.parentElement.id));
+				handlers.toggleTodo(parseInt(event.target.parentElement.parentElement.id));
 			}
 		});
 
+		todoUl.addEventListener('dblclick', function(event) {
+			if (event.target.className === 'todoLabel') {
+				// o div tem de receber a class de .edit
+				event.target.parentElement.className = 'edit';
+
+				// o input tem de ficar sem class
+				var inputEl = event.target.parentElement.nextSibling;
+				inputEl.className = 'editEl';
+				inputEl.focus();
+			}
+		});
+
+		todoUl.addEventListener('keyup', function(event) {
+			var inputEL = event.target;
+
+			if (event.which === ENTER_KEY) {
+				inputEL.blur();
+			}
+
+			if (event.which === ESCAPE_KEY) {
+				inputEL.blur();
+			}
+
+		});
+
+		todoUl.addEventListener('focusout', function(event) {
+			if (event.target.className === 'editEl') {
+
+				var inputEl = event.target;
+				console.log(inputEl.value);
+
+				// if there is no value, delete todo.
+
+				// if there is a value update the .todoText.
+
+
+				// o div tem de ficar sem classes
+				event.target.previousSibling.className = '';
+				// o input tem de receber a class de editEL edit
+				event.target.className = 'editEl edit';
+			}
+		});
 	},
 	createTodoLi: function(todoText, status, position) {
 		var liElement = document.createElement('li');
 		liElement.id = position;
 
-		var inputElement = document.createElement('input');
-		inputElement.type = 'checkbox';
-		inputElement.className = 'todoStatus';
-		inputElement.checked = status;
+		var divElement = document.createElement('div');
+
+		var checkboxElement = document.createElement('input');
+		checkboxElement.type = 'checkbox';
+		checkboxElement.className = 'todoStatus';
+		checkboxElement.checked = status;
 
 		var labelElement = document.createElement('label');
+		labelElement.className = 'todoLabel';
 		labelElement.textContent = todoText;
 		if (status) {
 			labelElement.className = 'completed';
@@ -119,9 +166,16 @@ var view = {
 		deleteButton.className = 'deleteButton';
 		deleteButton.textContent = 'delete';
 
-		liElement.appendChild(inputElement);
-		liElement.appendChild(labelElement);
-		liElement.appendChild(deleteButton);
+		var inputEl = document.createElement('input');
+		inputEl.className = 'editEl edit';
+		inputEl.value = todoText;
+		
+
+		divElement.appendChild(checkboxElement);
+		divElement.appendChild(labelElement);
+		divElement.appendChild(deleteButton);
+		liElement.appendChild(divElement);
+		liElement.appendChild(inputEl);
 
 		return liElement
 	}
