@@ -34,4 +34,11 @@
 
 - [x] Every Li should have an div element with input[checkbox], label and deleteButton and an input[text].
 - [x] It should hide the div and show the input[text] when double click the label.
-- [ ] It should actually edit the todo
+- [x] It should actually edit the todo
+- [x] BUG -  quando criei uma lista de 4 itens e eliminei o ultimo, o que desapareceu foi o primeiro.
+- [x] It should store the todoList.todos on localstorage.
+- [x] It should load the information from the localstorage if exists.
+
+# 161029
+
+- [ ] It should have an HTML footer updating the information.

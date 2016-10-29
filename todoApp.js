@@ -1,5 +1,16 @@
+var util = {
+	store: function (namespace, data) {
+		if (arguments.length > 1) {
+			return localStorage.setItem(namespace, JSON.stringify(data));
+		} else {
+			var store = localStorage.getItem(namespace);
+			return (store && JSON.parse(store)) || [];
+		}
+	}
+};
+
 var todoList = {
-	todos: [],
+	todos: util.store('myTodoMVC'),
 
 	addTodo: function(todo) {
 		this.todos.push({
@@ -74,6 +85,7 @@ var view = {
 
 			todosUl.appendChild(todoLi);
 		}, this);
+		util.store('myTodoMVC', todoList.todos);
 	},
 	setUpEvents: function(){
 		
@@ -92,7 +104,7 @@ var view = {
 
 			// delete button event
 			if (event.target.className === 'deleteButton') {
-				handlers.deleteTodo(parseInt(event.target.parentElement.id));
+				handlers.deleteTodo(parseInt(event.target.parentElement.parentElement.id));
 			}
 
 			// checkbox event
@@ -114,28 +126,37 @@ var view = {
 		});
 
 		todoUl.addEventListener('keyup', function(event) {
-			var inputEL = event.target;
+			if (event.target.className === 'editEl') {
 
-			if (event.which === ENTER_KEY) {
-				inputEL.blur();
+				if (event.which === ENTER_KEY) {
+					event.target.blur();
+				}
+
+				if (event.which === ESCAPE_KEY) {
+					event.target.dataset.abort = 'true';
+					event.target.blur();
+				}
 			}
-
-			if (event.which === ESCAPE_KEY) {
-				inputEL.blur();
-			}
-
 		});
 
 		todoUl.addEventListener('focusout', function(event) {
 			if (event.target.className === 'editEl') {
 
 				var inputEl = event.target;
-				console.log(inputEl.value);
-
+				var val = event.target.value.trim();
+				
 				// if there is no value, delete todo.
+				if (!val) {
+					handlers.deleteTodo(parseInt(inputEl.parentElement.id));
+				}
 
-				// if there is a value update the .todoText.
-
+				if (inputEl.dataset.abort === 'true') {
+					inputEl.value = todoList.todos[parseInt(inputEl.parentElement.id)].todoText;
+					inputEl.dataset.abort = '';
+				} else {
+					// if there is a value update the .todoText.
+					todoList.changeTodo(parseInt(inputEl.parentElement.id), val);
+				}
 
 				// o div tem de ficar sem classes
 				event.target.previousSibling.className = '';
@@ -170,7 +191,6 @@ var view = {
 		inputEl.className = 'editEl edit';
 		inputEl.value = todoText;
 		
-
 		divElement.appendChild(checkboxElement);
 		divElement.appendChild(labelElement);
 		divElement.appendChild(deleteButton);
@@ -182,16 +202,4 @@ var view = {
 };
 
 view.setUpEvents();
-
-
-
-
-
-
-
-
-
-
-
-
-
+view.displayTodos();

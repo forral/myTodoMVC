@@ -6,3 +6,21 @@
 .edit {
 	display: none;
 }
+
+footer span {
+	float: left;
+}
+
+footer ul {
+	position: absolute;
+	right: 136px;
+    left: 128px;
+}
+
+footer li {
+	display: inline;
+}
+
+footer button {
+	float: right;
+}
