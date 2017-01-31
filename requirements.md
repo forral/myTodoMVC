@@ -42,3 +42,4 @@
 # 161029
 
 - [ ] It should have an HTML footer updating the information.
+- [ ] It should be able to changeTodo when the item it's toggled.
