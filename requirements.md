@@ -26,11 +26,11 @@
 - [x] It should have an input type checkbox for every li
 - [x] It should update the value of .completed when tick the checkbox
 
-# 161026
+## 161026
 
 - [x] Fully understand how is implement the changeTodo in jQuery todoMVC
 
-# 161027
+## 161027
 
 - [x] Every Li should have an div element with input[checkbox], label and deleteButton and an input[text].
 - [x] It should hide the div and show the input[text] when double click the label.
@@ -39,7 +39,10 @@
 - [x] It should store the todoList.todos on localstorage.
 - [x] It should load the information from the localstorage if exists.
 
-# 161029
+## 161029
 
 - [ ] It should have an HTML footer updating the information.
+<<<<<<< HEAD
 - [ ] It should be able to changeTodo when the item it's toggled.
+=======
+>>>>>>> 10a7239eeff3c17fd7208cb33462ec0aaa8dd419
